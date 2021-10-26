@@ -20,6 +20,7 @@ jobs:
       -
         name: Get resources
         run: |
+          rm -rf *
           wget -O /tmp/master.zip https://github.com/apache/guacamole-server/archive/refs/heads/master.zip
           unzip /tmp/master.zip -d /tmp
           mv /tmp/guacamole-server-master/* .
@@ -42,3 +43,18 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/guacd:latest
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/guacd:cache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/guacd:cache,mode=max
+
+  Repository_Dispatch:
+    needs: guacamole_server
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Private Actions Checkout
+        uses: actions/checkout@v2.3.4
+      - 
+        name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/guacd
