@@ -1,3 +1,4 @@
+ARG DEBIAN_BASE_IMAGE=buster-slim
 FROM debian:${DEBIAN_BASE_IMAGE} AS builder
 ARG DEBIAN_RELEASE=buster-backports
 ARG PREFIX_DIR=/usr/local/guacamole
