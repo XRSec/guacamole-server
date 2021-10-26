@@ -41,6 +41,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/guacd:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/guacd:1.3.0
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/guacd:cache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/guacd:cache,mode=max
 
