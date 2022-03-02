@@ -1,7 +1,12 @@
 name: Docker guacamole-server Build
   
 on:
-  push
+  workflow_dispatch:
+  watch:
+    types: [started]
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 0 * * MON'
 
 jobs:
   guacamole_server:
